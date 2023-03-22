@@ -1,6 +1,6 @@
-# Base de Datos II
+# Calidad y Pruebas de Software
 
-Welcome to Base de Datos II course, this is a little tools guide that you use in this course.
+Welcome to Calidad y Pruebas de Software course, this is a little tools guide that you use in this course.
 This guide suposes that you are working in a Microsoft Windows 10 or superior machine given for the university in their labs.
 This tools are multiplatform so you can install in others machine platforms like Linux or Mac if you need. 
 
@@ -21,9 +21,19 @@ This tools are multiplatform so you can install in others machine platforms like
    dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
    ```
+1. Download WSL kernel update from https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+   ```
+   curl -o wsl_update_x64.msi https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+   ```
 1. Restart the machine.
-1. Download and install WSL kernel update from https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
-1. Open again Powershell terminal in administrator mode and set WSL version
+   ```
+   shutdown /r /t0
+   ```
+1. Open again a Powershell terminal in administrator mode and 
+   ```
+   .\wsl_update_x64.msi /quiet
+   ```
+1. Set WSL version
    ```
    wsl --set-default-version 2
    ```
