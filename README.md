@@ -58,6 +58,7 @@ This tools are multiplatform so you can install in others machine platforms like
    wsl -l -v
    ```
    This show something like this:
+   
    NAME            STATE           VERSION
    * Ubuntu-22.04    Stopped         2
    
