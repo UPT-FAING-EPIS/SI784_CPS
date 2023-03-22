@@ -27,7 +27,7 @@ This tools are multiplatform so you can install in others machine platforms like
    ```
 1. Restart the machine.
    ```
-   shutdown /r /t0
+   shutdown /r /t 0
    ```
 1. Open again a Powershell terminal in administrator mode and 
    ```
@@ -77,6 +77,12 @@ This tools are multiplatform so you can install in others machine platforms like
    choco install docker-desktop
    ```
    </details>
+
+1. logoff the machine.
+   ```
+   logoff
+   ```
+
 
 ### Azure Data Studio
 1. Open a Powershell terminal in administrator mode and run the following command. 
