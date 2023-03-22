@@ -37,7 +37,7 @@ This tools are multiplatform so you can install in others machine platforms like
    ```
    wsl --set-default-version 2
    ```
-1. Install ubuntu with choco
+1. Install ubuntu Subsytem
    <details><summary>WinGet</summary>
 
    ```
@@ -52,7 +52,17 @@ This tools are multiplatform so you can install in others machine platforms like
    </details>
 
    > Or download and install from https://aka.ms/wslubuntu2204
-
+  
+1. Verify ubuntu Subsytem installed and use versión 2
+   ```
+   wsl -l -v
+   ```
+   This show something like this:
+   NAME            STATE           VERSION
+   * Ubuntu-22.04    Stopped         2
+   
+   if not, start ubuntu subsytem in Windows and make necessary configurations, after re run prior command.
+   
 1. Install Docker Desktop
    <details><summary>WinGet</summary>
 
