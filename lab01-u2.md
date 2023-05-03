@@ -1,4 +1,4 @@
-# SESION DE LABORATORIO N° 01: ANALISIS ESTATICO DE UNA APLICACIÓN MONOLITICA
+# SESION DE LABORATORIO N° 01: PRUEBAS UNITARIAS
 
 ## OBJETIVOS
   * Comprender el funcionamiento de las tecnicas de Analisis Estatico mediante su aplicación en una herramienta y una aplicación.
@@ -22,24 +22,24 @@
   * Clonar el repositorio mediante git para tener los recursos necesaarios
 
 ## DESARROLLO
-1. Iniciar la aplicación Docker Desktop:
-2. Iniciar la aplicación Powershell o Windows Terminal en modo administrador 
-3. Ejecutar el siguiente comando para verificar la versión de Docker
+1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador 
+2. Ejecutar el siguiente comando para crear una nueva solución
 ```
-docker version
+dotnet new sln -o MyMath
 ```
-4. Descargar la imagen de docker de Microsoft SQL Server
+3. Acceder a la solución creada y ejecutar el siguiente comando para crear una nueva libreria de clases y adicionarla a la solución actual.
 ```
-docker pull sonarqube
+cd MyMath
+dotnet new classlib -o Math.Lib
+dotnet sln add .\Math.Lib\Math.Lib.csproj
 ```
-5. Verificar la imagen de docker descargada
+4. Ejecutar el siguiente comando para crear un nuevo proyecto de pruebas y adicionarla a la solución actual
 ```
-docker images
+dotnet new mstest -o Math.Tests
+dotnet sln add .\Math.Tests\Math.Tests.csproj
 ```
-6. Ejecutar e iniciar una instancia de contenedor de la imagen previamente descargada
-```
-docker run -d --name sonarqube -p 9000:9000 sonarqube
-```
+5. Iniciar Visual Studio Code abriendo el folder de la solución como proyecto. Luego modificar el archivo UnitTest1.cs
+<script src="https://gist.github.com/p-cuadros/7a146fe1754e2b6fc04dd9b58f8c6350.js"></script>
 7. Verificar la instancia de contenedor este en ejecución
 ```
 docker ps
