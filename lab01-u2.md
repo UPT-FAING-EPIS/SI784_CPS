@@ -39,6 +39,8 @@ dotnet new mstest -o Math.Tests
 dotnet sln add .\Math.Tests\Math.Tests.csproj
 ```
 5. Iniciar Visual Studio Code abriendo el folder de la solución como proyecto. Luego modificar el archivo UnitTest1.cs
+
+https://gist.github.com/p-cuadros/7a146fe1754e2b6fc04dd9b58f8c6350
 ```
 <script src="https://gist.github.com/p-cuadros/7a146fe1754e2b6fc04dd9b58f8c6350.js"></script>
 ```
