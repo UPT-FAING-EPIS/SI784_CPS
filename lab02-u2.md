@@ -19,25 +19,25 @@
     - Visual Studio Code
 
 ## CONSIDERACIONES INICIALES
-  * Clonar el repositorio mediante git para tener los recursos necesaarios
+  * Clonar el repositorio mediante git para tener los recursos necesarios
 
 ## DESARROLLO
 1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador 
 2. Ejecutar el siguiente comando para crear una nueva solución
 ```
-dotnet new sln -o MyMath
+dotnet new sln -o Primes
 ```
 3. Acceder a la solución creada y ejecutar el siguiente comando para crear una nueva libreria de clases y adicionarla a la solución actual.
 ```
 cd MyMath
-dotnet new classlib -o Math.Lib
-dotnet sln add .\Math.Lib\Math.Lib.csproj
+dotnet new classlib -o Primes.Lib
+dotnet sln add .\Primes.Lib\Primes.Lib.csproj
 ```
 4. Ejecutar el siguiente comando para crear un nuevo proyecto de pruebas y adicionarla a la solución actual
 ```
-dotnet new mstest -o Math.Tests
-dotnet sln add .\Math.Tests\Math.Tests.csproj
-dotnet add .\Math.Tests\Math.Tests.csproj reference .\Math.Lib\Math.Lib.csproj
+dotnet new xunit -o Primes.Tests
+dotnet sln add .\Primes.Tests\Primes.Tests.csproj
+dotnet add .\Math.Tests\Math.Tests.csproj reference .\Primes.Lib\Primes.Lib.csproj
 ```
 5. Iniciar Visual Studio Code abriendo el folder de la solución como proyecto. Luego en el proyecto Math.Tests añadir un nuevo archivo RooterTests.cs e introducir el siguiente código:
 ```C#
