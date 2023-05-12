@@ -37,23 +37,53 @@ dotnet sln add .\Math.Lib\Math.Lib.csproj
 ```
 dotnet new mstest -o Math.Tests
 dotnet sln add .\Math.Tests\Math.Tests.csproj
+dotnet add .\Math.Tests\Math.Tests.csproj reference .\Math.Lib\Math.Lib.csproj
 ```
-5. Iniciar Visual Studio Code abriendo el folder de la solución como proyecto. Luego modificar el archivo UnitTest1.cs
+5. Iniciar Visual Studio Code abriendo el folder de la solución como proyecto. Luego en el proyecto Math.Tests añadir un nuevo archivo RooterTests.cs e introducir el siguiente código:
+```C#
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-https://gist.github.com/p-cuadros/7a146fe1754e2b6fc04dd9b58f8c6350
+namespace Math.Tests
+{
+    [TestClass]
+    public class RooterTests
+    {
+        [TestMethod]
+        public void BasicRooterTest()
+        {
+            Rooter rooter = new Rooter();
+            double expectedResult = 2.0;
+            double input = expectedResult * expectedResult;
+            double actualResult = rooter.SquareRoot(input);
+            Assert.AreEqual(expectedResult, actualResult, delta: expectedResult / 100);
+        }
+    }
+}
 ```
-<script src="https://gist.github.com/p-cuadros/7a146fe1754e2b6fc04dd9b58f8c6350.js"></script>
-```
-7. Verificar la instancia de contenedor este en ejecución
-```
-docker ps
-```
-8. Esperar unos segundos e iniciar un navegador con la direccion: http://localhost:9000/
-> user: admin  
-> pass: admin  
 
-9. Crear una nueva aplicación con el nombre aplicacionNetCore:
-
+7. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
+```
+dotnet restore
+dotnet test
+```
+8. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
+9. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
+```C#
+namespace Math.Lib
+{
+    public class Rooter
+    {
+        public double SquareRoot(double input)
+        {
+            return input / 2;
+        }
+    }
+}
+```
+10. Seguidamente modificar el archivo RooterTests.cs y adicionar al inicio del mismo el siguiente contenido:
+```C#
+using Math.Lib;
+```
 10. En un terminal de Powershell en modo Administrador, ejecutar e instalar sonar-scanner
 ```
 dotnet tool install --global dotnet-sonarscanner
