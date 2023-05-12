@@ -84,7 +84,10 @@ dotnet restore
 dotnet test
 ```
 7. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
-8. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
+```Bash
+Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: < 1 ms
+```
+9. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
 ```C#
 namespace Math.Lib
 {
