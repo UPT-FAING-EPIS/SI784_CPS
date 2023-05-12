@@ -128,18 +128,58 @@ namespace Math.Lib
     }
 }
 ```
-14. Ejecutar el siguiente comando en Powershell finalizar la revisión de sonarqube.
+14. Volver a ejecutar el paso 6 y verificar el resultado, debería ser similar a lo siguiente
 ```
-dotnet sonarscanner end /d:sonar.login=admin /d:sonar.password=admin
+Correctas! - Con error:     0, Superado:     3, Omitido:     0, Total:     3, Duracin: 14 ms - Math.Tests.dll
 ```
 15. Ejecutar el siguiente comando en Powershell para eliminar el contenedor generado.
 ```
 docker rm -f sonarqube
 ```
-16. Verificar la instancia de contenedor ya no se encuentra activa
+16. Adicionar un nuevo caso de prueba con excepción en la clase RooterTests:
+```C#
+        [TestMethod]
+        public void RooterTestNegativeInputx()
+        {
+            Rooter rooter = new Rooter();
+            try
+            {
+                rooter.SquareRoot(-10);
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                return;
+            }
+            Assert.Fail();
+        }
 ```
-docker ps
+17. Adicionar un nuevo caso de prueba con excepción en la clase RooterTests:
+```C#
+namespace Math.Lib
+{
+    public class Rooter
+    {
+        public double SquareRoot(double input)
+        {
+            if (input <= 0.0) throw new ArgumentOutOfRangeException();
+            double result = input;
+            double previousResult = -input;
+            while (System.Math.Abs(previousResult - result)
+                > result / 1000)
+            {
+            previousResult = result;
+            result = result - (result * result - input) / (2 * result);
+            }
+            return result;
+        }
+    }
+}
 ```
+18. dddd
+```
+Correctas! - Con error:     0, Superado:     4, Omitido:     0, Total:     4, Duración: 13 ms - Math.Tests.dll
+```
+
 ---
 ## Actividades Encargadas
 1. Realizar la misma actividad para su proyecto, teniendo en cuenta que la forma de invocar Sonnar Scaner puede se distinta, para mayor información https://docs.sonarqube.org/latest/analyzing-source-code/scanners/sonarscanner/
