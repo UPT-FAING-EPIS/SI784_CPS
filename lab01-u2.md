@@ -1,7 +1,7 @@
 # SESION DE LABORATORIO N° 01: PRUEBAS UNITARIAS CON MSTEST
 
 ## OBJETIVOS
-  * Comprender el funcionamiento de las tecnicas de Analisis Estatico mediante su aplicación en una herramienta y una aplicación.
+  * Comprender el funcionamiento de las pruebas unitarias dentro de una aplicación utilizando el Framework de pruebas de Microsoft (MSTest).
 
 ## REQUERIMIENTOS
   * Conocimientos: 
