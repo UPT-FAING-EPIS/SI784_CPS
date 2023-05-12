@@ -39,23 +39,41 @@ dotnet new xunit -o Primes.Tests
 dotnet sln add .\Primes.Tests\Primes.Tests.csproj
 dotnet add .\Primes.Tests\Primes.Tests.csproj reference .\Primes.Lib\Primes.Lib.csproj
 ```
-5. Iniciar Visual Studio Code abriendo el folder de la solución como proyecto. Luego en el proyecto Math.Tests añadir un nuevo archivo RooterTests.cs e introducir el siguiente código:
-```C#
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Primes.Lib, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Primes.Tests si existiese un archivo UnitTest1, tambièn proceder a aliminarlo.
 
-namespace Math.Tests
+6. En VS Code, en el proyecto Primes.Lib proceder a crear el archivo PrimeServices e introdudir el siguiente código, para generar un metodo que devolvera una excepciòn inicialmente:
+```C#
+namespace Primes.Lib
 {
-    [TestClass]
-    public class RooterTests
+    public class PrimeService
     {
-        [TestMethod]
-        public void BasicRooterTest()
+        public bool IsPrime(int candidate)
         {
-            Rooter rooter = new Rooter();
-            double expectedResult = 2.0;
-            double input = expectedResult * expectedResult;
-            double actualResult = rooter.SquareRoot(input);
-            Assert.AreEqual(expectedResult, actualResult, delta: expectedResult / 100);
+            throw new NotImplementedException("Not implemented.");
+        }
+    }
+}
+```
+7. Luego en el proyecto Primes.Tests añadir un nuevo archivo PrimeServiceTests.cs e introducir el siguiente código:
+```C#
+using Primes.Lib;
+using Xunit;
+
+namespace Primes.Tests
+{
+    public class PrimeServiceTests
+    {
+        private readonly PrimeService _primeService;
+        public PrimeServiceTests()
+        {
+            _primeService = new PrimeService();
+        }
+
+        [Fact]
+        public void IsPrime_InputIs1_ReturnFalse()
+        {
+            var result = _primeService.IsPrime(1);
+            Assert.False(result, "1 should not be prime");
         }
     }
 }
