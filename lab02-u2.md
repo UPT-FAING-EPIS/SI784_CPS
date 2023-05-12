@@ -105,20 +105,16 @@ namespace Primes.Lib
 ```Bash
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: < 1 ms
 ```
-11. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba RooterTests y adicionar los métodos siguientes:
+12. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba PrimeServiceTests y adicionar el método siguiente:
 ```C#
-        [TestMethod]
-        public void RooterValueRange()
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(0)]
+        [InlineData(1)]
+        public void IsPrime_ValuesLessThan2_ReturnFalse(int value)
         {
-            Rooter rooter = new Rooter();
-            for (double expected = 1e-8; expected < 1e+8; expected *= 3.2)
-                RooterOneValue(rooter, expected);
-        }
-        private void RooterOneValue(Rooter rooter, double expectedResult)
-        {
-            double input = expectedResult * expectedResult;
-            double actualResult = rooter.SquareRoot(input);
-            Assert.AreEqual(expectedResult, actualResult, delta: expectedResult / 1000);
+            var result = _primeService.IsPrime(value);
+            Assert.False(result, $"{value} should not be prime");
         }
 ```
 12. Ejecutar nuevamente el paso 6 para lo cual se obtendra un error similar al siguiente:
