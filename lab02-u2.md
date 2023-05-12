@@ -79,7 +79,7 @@ namespace Primes.Tests
 }
 ```
 8. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
-```Powershell
+```Bash
 dotnet restore
 dotnet test
 ```
