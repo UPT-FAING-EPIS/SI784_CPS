@@ -60,14 +60,13 @@ namespace Math.Tests
     }
 }
 ```
-
-7. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
+6. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
 ```
 dotnet restore
 dotnet test
 ```
-8. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
-9. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
+7. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
+8. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
 ```C#
 namespace Math.Lib
 {
@@ -80,20 +79,29 @@ namespace Math.Lib
     }
 }
 ```
-10. Seguidamente modificar el archivo RooterTests.cs y adicionar al inicio del mismo el siguiente contenido:
+9. Seguidamente modificar el archivo RooterTests.cs y adicionar al inicio del mismo el siguiente contenido:
 ```C#
 using Math.Lib;
 ```
-10. En un terminal de Powershell en modo Administrador, ejecutar e instalar sonar-scanner
+10. Ejecutar nuevamente el pase 6 y ahora deberia devolver algo similar a lo siguiente:
 ```
-dotnet tool install --global dotnet-sonarscanner
+Correctas! - Con error:     0, Superado:     2, Omitido:     0, Total:     2, Duración: 12 ms - Math.Tests.dll
 ```
-11. Ejecutar el siguiente comando el Powershell para crear una aplicación de consola.
+11. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba RooterTests y adicionar los métodos siguientes:
 ```
-dotnet new sln -o aplicacionNetCore
-cd aplicacionNetCore
-dotnet new console
-dotnet sln aplicacionNetCore.sln add aplicacionNetCore.csproj
+        [TestMethod]
+        public void RooterValueRange()
+        {
+            Rooter rooter = new Rooter();
+            for (double expected = 1e-8; expected < 1e+8; expected *= 3.2)
+                RooterOneValue(rooter, expected);
+        }
+        private void RooterOneValue(Rooter rooter, double expectedResult)
+        {
+            double input = expectedResult * expectedResult;
+            double actualResult = rooter.SquareRoot(input);
+            Assert.AreEqual(expectedResult, actualResult, delta: expectedResult / 1000);
+        }
 ```
 12. Ejecutar el siguiente comando en Powershell, iniciar la sesión de revisión de sonarqube.
 ```
