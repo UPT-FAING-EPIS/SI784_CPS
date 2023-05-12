@@ -101,11 +101,11 @@ namespace Primes.Lib
     }
 }
 ```
-11. Ejecutar nuevamente el pase 6 y ahora deberia devolver algo similar a lo siguiente:
+11. Ejecutar nuevamente el pase 8 y ahora deberia devolver algo similar a lo siguiente:
 ```Bash
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: < 1 ms
 ```
-12. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba PrimeServiceTests y adicionar el método siguiente:
+12. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba PrimeServiceTests y adicionar el método siguiente, que adiciona tres valores y escenarios de pruebas más:
 ```C#
         [Theory]
         [InlineData(-1)]
@@ -117,79 +117,29 @@ Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration:
             Assert.False(result, $"{value} should not be prime");
         }
 ```
-12. Ejecutar nuevamente el paso 6 para lo cual se obtendra un error similar al siguiente:
+13. Ejecutar nuevamente el paso 8 para lo cual se obtendra un error similar al siguiente:
 ```
-Con error! - Con error:     1, Superado:     2, Omitido:     0, Total:     3, Duracin: 30 ms - Math.Tests.dll
+Failed!  - Failed:     2, Passed:     2, Skipped:     0, Total:     4, Duration: 46 ms
 ```
-13. A fin de que las pruebas puedan ejecutarse correctamente, modificar la clase Rooter de la siguiente manera:
+14. A fin de que las pruebas puedan ejecutarse correctamente, modificar la clase PrimeService de la siguiente manera:
 ```C#
-namespace Math.Lib
+namespace Primes.Lib
 {
-    public class Rooter
+    public class PrimeService
     {
-        public double SquareRoot(double input)
+        public bool IsPrime(int candidate)
         {
-            double result = input;
-            double previousResult = -input;
-            while (System.Math.Abs(previousResult - result)
-                > result / 1000)
-            {
-            previousResult = result;
-            result = result - (result * result - input) / (2 * result);
-            }
-            return result;
+            if (candidate < 2) return false;
+            throw new NotImplementedException("Not implemented.");
         }
     }
 }
 ```
-14. Volver a ejecutar el paso 6 y verificar el resultado, debería ser similar a lo siguiente
+15. Volver a ejecutar el paso 8 y verificar el resultado, debería ser similar a lo siguiente
 ```
-Correctas! - Con error:     0, Superado:     3, Omitido:     0, Total:     3, Duracin: 14 ms - Math.Tests.dll
-```
-15. Adicionar un nuevo caso de prueba con excepción en la clase RooterTests:
-```C#
-        [TestMethod]
-        public void RooterTestNegativeInputx()
-        {
-            Rooter rooter = new Rooter();
-            try
-            {
-                rooter.SquareRoot(-10);
-            }
-            catch (System.ArgumentOutOfRangeException)
-            {
-                return;
-            }
-            Assert.Fail();
-        }
-```
-16. Modificar la clase Rooter adicionando una nueva condición:
-```C#
-namespace Math.Lib
-{
-    public class Rooter
-    {
-        public double SquareRoot(double input)
-        {
-            if (input <= 0.0) throw new ArgumentOutOfRangeException();
-            double result = input;
-            double previousResult = -input;
-            while (System.Math.Abs(previousResult - result)
-                > result / 1000)
-            {
-            previousResult = result;
-            result = result - (result * result - input) / (2 * result);
-            }
-            return result;
-        }
-    }
-}
-```
-17. Al ejecutar las pruebas (paso 6) se obtendrá el siguiente resultado:
-```
-Correctas! - Con error:     0, Superado:     4, Omitido:     0, Total:     4, Duración: 13 ms - Math.Tests.dll
+Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 2 ms
 ```
 
 ---
 ## Actividades Encargadas
-1. Adicionar un nuevo escenario de prueba donde se maneje una excepción con un mensaje que diga "El valor ingresado es invalido, solo se puede ingresar números positivos".
+1. Adicionar los escenarios, casos de prueba, metodos de prueba y modificaciones para verificar los números del 2 al 20.
