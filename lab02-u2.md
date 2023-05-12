@@ -1,7 +1,7 @@
 # SESION DE LABORATORIO N° 02: PRUEBAS UNITARIAS CON XUNIT
 
 ## OBJETIVOS
-  * Comprender el funcionamiento de las tecnicas de Analisis Estatico mediante su aplicación en una herramienta y una aplicación.
+  * Comprender el funcionamiento de las pruebas unitarias dentro de una aplicación utilizando el Framework de pruebas XUnit.
 
 ## REQUERIMIENTOS
   * Conocimientos: 
