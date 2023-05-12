@@ -29,7 +29,7 @@ dotnet new sln -o Primes
 ```
 3. Acceder a la solución creada y ejecutar el siguiente comando para crear una nueva libreria de clases y adicionarla a la solución actual.
 ```
-cd MyMath
+cd Primes
 dotnet new classlib -o Primes.Lib
 dotnet sln add .\Primes.Lib\Primes.Lib.csproj
 ```
