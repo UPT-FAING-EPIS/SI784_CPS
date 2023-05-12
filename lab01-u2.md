@@ -1,4 +1,4 @@
-# SESION DE LABORATORIO N° 01: PRUEBAS UNITARIAS
+# SESION DE LABORATORIO N° 01: PRUEBAS UNITARIAS CON MSTEST
 
 ## OBJETIVOS
   * Comprender el funcionamiento de las tecnicas de Analisis Estatico mediante su aplicación en una herramienta y una aplicación.
