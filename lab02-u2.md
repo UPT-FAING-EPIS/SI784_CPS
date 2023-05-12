@@ -83,30 +83,27 @@ namespace Primes.Tests
 dotnet restore
 dotnet test
 ```
-7. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
+9. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
 ```Bash
 Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: < 1 ms
 ```
-9. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
+10. En el proyecto Primes.Lib, modificar la clase PrimeService, con el siguiente contenido:
 ```C#
-namespace Math.Lib
+namespace Primes.Lib
 {
-    public class Rooter
+    public class PrimeService
     {
-        public double SquareRoot(double input)
+        public bool IsPrime(int candidate)
         {
-            return input / 2;
+            if (candidate == 1) return false;
+            throw new NotImplementedException("Not implemented.");
         }
     }
 }
 ```
-9. Seguidamente modificar el archivo RooterTests.cs y adicionar al inicio del mismo el siguiente contenido:
-```C#
-using Math.Lib;
-```
-10. Ejecutar nuevamente el pase 6 y ahora deberia devolver algo similar a lo siguiente:
-```
-Correctas! - Con error:     0, Superado:     2, Omitido:     0, Total:     2, Duración: 12 ms - Math.Tests.dll
+11. Ejecutar nuevamente el pase 6 y ahora deberia devolver algo similar a lo siguiente:
+```Bash
+Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: < 1 ms
 ```
 11. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba RooterTests y adicionar los métodos siguientes:
 ```C#
