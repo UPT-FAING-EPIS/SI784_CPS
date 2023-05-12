@@ -88,7 +88,7 @@ using Math.Lib;
 Correctas! - Con error:     0, Superado:     2, Omitido:     0, Total:     2, Duración: 12 ms - Math.Tests.dll
 ```
 11. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba RooterTests y adicionar los métodos siguientes:
-```
+```C#
         [TestMethod]
         public void RooterValueRange()
         {
@@ -103,13 +103,30 @@ Correctas! - Con error:     0, Superado:     2, Omitido:     0, Total:     2, Du
             Assert.AreEqual(expectedResult, actualResult, delta: expectedResult / 1000);
         }
 ```
-12. Ejecutar el siguiente comando en Powershell, iniciar la sesión de revisión de sonarqube.
+12. Ejecutar nuevamente el paso 6 para lo cual se obtendra un error similar al siguiente:
 ```
-dotnet sonarscanner begin /d:sonar.host.url="http://localhost:9000" /d:sonar.login=admin /d:sonar.password=admin /k:”aplicacionNetCore”
+Con error! - Con error:     1, Superado:     2, Omitido:     0, Total:     3, Duracin: 30 ms - Math.Tests.dll
 ```
-13. Ejecutar el siguiente comando en Powershell para construir la aplicación.
-```
-dotnet build
+13. A fin de que las pruebas puedan ejecutarse correctamente, modificar la clase Rooter de la siguiente manera:
+```C#
+namespace Math.Lib
+{
+    public class Rooter
+    {
+        public double SquareRoot(double input)
+        {
+            double result = input;
+            double previousResult = -input;
+            while (System.Math.Abs(previousResult - result)
+                > result / 1000)
+            {
+            previousResult = result;
+            result = result - (result * result - input) / (2 * result);
+            }
+            return result;
+        }
+    }
+}
 ```
 14. Ejecutar el siguiente comando en Powershell finalizar la revisión de sonarqube.
 ```
