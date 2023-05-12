@@ -1,4 +1,4 @@
-# SESION DE LABORATORIO N° 02: PRUEBAS UNITARIAS CON NUNIT
+# SESION DE LABORATORIO N° 03: PRUEBAS UNITARIAS CON NUNIT
 
 ## OBJETIVOS
   * Comprender el funcionamiento de las pruebas unitarias dentro de una aplicación utilizando el Framework de pruebas XUnit.
