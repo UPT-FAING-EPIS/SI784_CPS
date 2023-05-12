@@ -65,7 +65,7 @@ namespace Math.Tests
 7. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
 ```
 dotnet restore
-dotnet test
+dotnet test --collect:"XPlat Code Coverage"
 ```
 8. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
 9. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
