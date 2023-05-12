@@ -37,7 +37,7 @@ dotnet sln add .\Primes.Lib\Primes.Lib.csproj
 ```
 dotnet new xunit -o Primes.Tests
 dotnet sln add .\Primes.Tests\Primes.Tests.csproj
-dotnet add .\Math.Tests\Math.Tests.csproj reference .\Primes.Lib\Primes.Lib.csproj
+dotnet add .\Primes.Tests\Primes.Tests.csproj reference .\Primes.Lib\Primes.Lib.csproj
 ```
 5. Iniciar Visual Studio Code abriendo el folder de la solución como proyecto. Luego en el proyecto Math.Tests añadir un nuevo archivo RooterTests.cs e introducir el siguiente código:
 ```C#
