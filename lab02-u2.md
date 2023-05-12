@@ -80,8 +80,7 @@ namespace Primes.Tests
 ```
 8. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
 ```Bash
-dotnet restore
-dotnet test
+dotnet test --collect:"XPlat Code Coverage"
 ```
 9. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
 ```Bash
@@ -139,6 +138,12 @@ namespace Primes.Lib
 ```
 Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 2 ms
 ```
+16. Finalmente proceder a verificar la cobertura, dentro del proyecto Primes.Tests se dede haber generado una carpeta o directorio TestResults, en el cual posiblemente exista otra subpcarpeta o subdirectorio conteniendo un archivo con nombre `coverage.cobertura.xml`, si existe ese archivo proceder a ejecutar los siguientes comandos desde la linea de comandos abierta anteriomente, de los contrario revisar el paso 8:
+```
+dotnet tool install -g dotnet-reportgenerator-globaltool
+ReportGenerator "-reports:./*/*/*/coverage.cobertura.xml" "-targetdir:Cobertura" -reporttypes:HTML
+```
+17. El comando anterior primero proceda instalar una herramienta llamada ReportGenerator (https://reportgenerator.io/) la cual mediante la segunda parte del comando permitira generar un reporte en formato HTML con la cobertura obtenida de la ejecución de las pruebas. Este reporte debe localizarse dentro de una carpeta llamada Cobertura y puede acceder a el abriendo con un navegador de internet el archivo index.htm.
 
 ---
 ## Actividades Encargadas
