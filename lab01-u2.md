@@ -132,11 +132,7 @@ namespace Math.Lib
 ```
 Correctas! - Con error:     0, Superado:     3, Omitido:     0, Total:     3, Duracin: 14 ms - Math.Tests.dll
 ```
-15. Ejecutar el siguiente comando en Powershell para eliminar el contenedor generado.
-```
-docker rm -f sonarqube
-```
-16. Adicionar un nuevo caso de prueba con excepción en la clase RooterTests:
+15. Adicionar un nuevo caso de prueba con excepción en la clase RooterTests:
 ```C#
         [TestMethod]
         public void RooterTestNegativeInputx()
@@ -153,7 +149,7 @@ docker rm -f sonarqube
             Assert.Fail();
         }
 ```
-17. Modificar la clase Rooter adicionando una nueva condición:
+16. Modificar la clase Rooter adicionando una nueva condición:
 ```C#
 namespace Math.Lib
 {
@@ -175,7 +171,7 @@ namespace Math.Lib
     }
 }
 ```
-18. Al ejecutar las pruebas (paso 6) se obtendrá el siguiente resultado:
+17. Al ejecutar las pruebas (paso 6) se obtendrá el siguiente resultado:
 ```
 Correctas! - Con error:     0, Superado:     4, Omitido:     0, Total:     4, Duración: 13 ms - Math.Tests.dll
 ```
