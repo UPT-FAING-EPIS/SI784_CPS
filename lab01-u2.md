@@ -153,7 +153,7 @@ docker rm -f sonarqube
             Assert.Fail();
         }
 ```
-17. Adicionar un nuevo caso de prueba con excepción en la clase RooterTests:
+17. Modificar la clase Rooter adicionando una nueva condición:
 ```C#
 namespace Math.Lib
 {
@@ -175,11 +175,11 @@ namespace Math.Lib
     }
 }
 ```
-18. dddd
+18. Al ejecutar las pruebas (paso 6) se obtendrá el siguiente resultado:
 ```
 Correctas! - Con error:     0, Superado:     4, Omitido:     0, Total:     4, Duración: 13 ms - Math.Tests.dll
 ```
 
 ---
 ## Actividades Encargadas
-1. Realizar la misma actividad para su proyecto, teniendo en cuenta que la forma de invocar Sonnar Scaner puede se distinta, para mayor información https://docs.sonarqube.org/latest/analyzing-source-code/scanners/sonarscanner/
+1. Adicionar un nuevo escenario de prueba donde se maneje una excepción con un mensaje que diga "El valor ingresado es invalido, solo se puede ingresar números positivos".
