@@ -39,7 +39,9 @@ dotnet new mstest -o Math.Tests
 dotnet sln add .\Math.Tests\Math.Tests.csproj
 dotnet add .\Math.Tests\Math.Tests.csproj reference .\Math.Lib\Math.Lib.csproj
 ```
-5. Iniciar Visual Studio Code abriendo el folder de la solución como proyecto. Luego en el proyecto Math.Tests añadir un nuevo archivo RooterTests.cs e introducir el siguiente código:
+5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Math.Lib, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Math.Tests si existiese un archivo UnitTest1, tambièn proceder a aliminarlo.
+
+6. En VS Code, en el proyecto Math.Tests añadir un nuevo archivo RooterTests.cs e introducir el siguiente código:
 ```C#
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -60,13 +62,13 @@ namespace Math.Tests
     }
 }
 ```
-6. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
+7. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
 ```
 dotnet restore
 dotnet test
 ```
-7. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
-8. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
+8. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
+9. En el proyecto Math.Lib, añadir un nuevo archivo Rooter.cs, con el siguiente contenido:
 ```C#
 namespace Math.Lib
 {
@@ -79,15 +81,15 @@ namespace Math.Lib
     }
 }
 ```
-9. Seguidamente modificar el archivo RooterTests.cs y adicionar al inicio del mismo el siguiente contenido:
+10. Seguidamente modificar el archivo RooterTests.cs y adicionar al inicio del mismo el siguiente contenido:
 ```C#
 using Math.Lib;
 ```
-10. Ejecutar nuevamente el pase 6 y ahora deberia devolver algo similar a lo siguiente:
+11. Ejecutar nuevamente el pase 6 y ahora deberia devolver algo similar a lo siguiente:
 ```
 Correctas! - Con error:     0, Superado:     2, Omitido:     0, Total:     2, Duración: 12 ms - Math.Tests.dll
 ```
-11. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba RooterTests y adicionar los métodos siguientes:
+12. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba RooterTests y adicionar los métodos siguientes:
 ```C#
         [TestMethod]
         public void RooterValueRange()
@@ -103,11 +105,11 @@ Correctas! - Con error:     0, Superado:     2, Omitido:     0, Total:     2, Du
             Assert.AreEqual(expectedResult, actualResult, delta: expectedResult / 1000);
         }
 ```
-12. Ejecutar nuevamente el paso 6 para lo cual se obtendra un error similar al siguiente:
+13. Ejecutar nuevamente el paso 6 para lo cual se obtendra un error similar al siguiente:
 ```
 Con error! - Con error:     1, Superado:     2, Omitido:     0, Total:     3, Duracin: 30 ms - Math.Tests.dll
 ```
-13. A fin de que las pruebas puedan ejecutarse correctamente, modificar la clase Rooter de la siguiente manera:
+14. A fin de que las pruebas puedan ejecutarse correctamente, modificar la clase Rooter de la siguiente manera:
 ```C#
 namespace Math.Lib
 {
@@ -128,11 +130,11 @@ namespace Math.Lib
     }
 }
 ```
-14. Volver a ejecutar el paso 6 y verificar el resultado, debería ser similar a lo siguiente
+15. Volver a ejecutar el paso 6 y verificar el resultado, debería ser similar a lo siguiente
 ```
 Correctas! - Con error:     0, Superado:     3, Omitido:     0, Total:     3, Duracin: 14 ms - Math.Tests.dll
 ```
-15. Adicionar un nuevo caso de prueba con excepción en la clase RooterTests:
+16. Adicionar un nuevo caso de prueba con excepción en la clase RooterTests:
 ```C#
         [TestMethod]
         public void RooterTestNegativeInputx()
@@ -149,7 +151,7 @@ Correctas! - Con error:     0, Superado:     3, Omitido:     0, Total:     3, Du
             Assert.Fail();
         }
 ```
-16. Modificar la clase Rooter adicionando una nueva condición:
+17. Modificar la clase Rooter adicionando una nueva condición:
 ```C#
 namespace Math.Lib
 {
@@ -171,7 +173,7 @@ namespace Math.Lib
     }
 }
 ```
-17. Al ejecutar las pruebas (paso 6) se obtendrá el siguiente resultado:
+18. Al ejecutar las pruebas (paso 6) se obtendrá el siguiente resultado:
 ```
 Correctas! - Con error:     0, Superado:     4, Omitido:     0, Total:     4, Duración: 13 ms - Math.Tests.dll
 ```
