@@ -39,7 +39,7 @@ dotnet new nunit -o Bank.Domain.Tests
 dotnet sln add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj
 dotnet add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj reference ./Bank.Domain/Bank.Domain.csproj
 ```
-5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Primes.Lib, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Primes.Tests si existiese un archivo UnitTest1, tambièn proceder a aliminarlo.
+5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Bank.Domain, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Bank.Domain.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
 
 6. En VS Code, en el proyecto Bank.Domain proceder a crear el archivo BankAccount.cs e introducir el siguiente código:
 ```C#
@@ -81,26 +81,28 @@ namespace Bank.Domain
     }
 }
 ```
-7. Luego en el proyecto Primes.Tests añadir un nuevo archivo PrimeServiceTests.cs e introducir el siguiente código:
+7. Luego en el proyecto Bank.Domain.Tests añadir un nuevo archivo BanckAccountTests.cs e introducir el siguiente código:
 ```C#
-using Primes.Lib;
-using Xunit;
+using Bank.Domain;
+using NUnit.Framework;
 
-namespace Primes.Tests
+namespace Bank.Domain.Tests
 {
-    public class PrimeServiceTests
+    public class BankAccountTests
     {
-        private readonly PrimeService _primeService;
-        public PrimeServiceTests()
+        [Test]
+        public void Debit_WithValidAmount_UpdatesBalance()
         {
-            _primeService = new PrimeService();
-        }
-
-        [Fact]
-        public void IsPrime_InputIs1_ReturnFalse()
-        {
-            var result = _primeService.IsPrime(1);
-            Assert.False(result, "1 should not be prime");
+            // Arrange
+            double beginningBalance = 11.99;
+            double debitAmount = 4.55;
+            double expected = 7.44;
+            BankAccount account = new BankAccount("Mr. Bryan Walton", beginningBalance);
+            // Act
+            account.Debit(debitAmount);
+            // Assert
+            double actual = account.Balance;
+            Assert.AreEqual(expected, actual, 0.001, "Account not debited correctly");
         }
     }
 }
@@ -113,19 +115,9 @@ dotnet test --collect:"XPlat Code Coverage"
 ```Bash
 Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: < 1 ms
 ```
-10. En el proyecto Primes.Lib, modificar la clase PrimeService, con el siguiente contenido:
+10. En el proyecto Bank.Domain, modificar la clase BankAccount, en la linea 21 con el siguiente contenido:
 ```C#
-namespace Primes.Lib
-{
-    public class PrimeService
-    {
-        public bool IsPrime(int candidate)
-        {
-            if (candidate == 1) return false;
-            throw new NotImplementedException("Not implemented.");
-        }
-    }
-}
+       m_balance -= amount;
 ```
 11. Ejecutar nuevamente el pase 8 y ahora deberia devolver algo similar a lo siguiente:
 ```Bash
