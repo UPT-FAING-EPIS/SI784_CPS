@@ -140,7 +140,7 @@ Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration:
 ```
 Passed!  - Failed:     0, Passed:     2, Skipped:     0, Total:     2, Duration: 9 ms
 ```
-14. Ahora es tiempo de mejorar el código y refactorizar, para lo cual se modificar la clase BankAccount de la siguiente manera:
+14. Ahora es tiempo de mejorar el código y refactorizar, para lo cual modificar la clase BankAccount de la siguiente manera:
 ```C#
 using System;
 namespace Bank.Domain
@@ -176,17 +176,38 @@ namespace Bank.Domain
     }
 }
 ```
-15. Volver a ejecutar el paso 8 y verificar el resultado, debería ser similar a lo siguiente
+15. Adicionar el siguiente método de prueba en la clase BankAccountTests, que permitira verificar si el monto de retiro es mayor al saldo de la cuenta.
+```C#
+        [Test]
+        public void Debit_WhenAmountIsMoreThanBalance_ShouldThrowArgumentOutOfRange()
+        {
+            // Arrange
+            double beginningBalance = 11.99;
+            double debitAmount = 20.0;
+            BankAccount account = new BankAccount("Mr. Bryan Walton", beginningBalance);
+            // Act
+            try
+            {
+                account.Debit(debitAmount);
+            }
+            catch (System.ArgumentOutOfRangeException e)
+            {
+                // Assert
+                StringAssert.Contains(BankAccount.DebitAmountExceedsBalanceMessage, e.Message);
+            }
+        }
 ```
-Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 2 ms
+16. Volver a ejecutar el paso 8 y verificar el resultado, debería ser similar a lo siguiente
 ```
-16. Finalmente proceder a verificar la cobertura, dentro del proyecto Primes.Tests se dede haber generado una carpeta o directorio TestResults, en el cual posiblemente exista otra subpcarpeta o subdirectorio conteniendo un archivo con nombre `coverage.cobertura.xml`, si existe ese archivo proceder a ejecutar los siguientes comandos desde la linea de comandos abierta anteriomente, de los contrario revisar el paso 8:
+Passed!  - Failed:     0, Passed:     3, Skipped:     0, Total:     3, Duration: 12 ms
+```
+17. Finalmente proceder a verificar la cobertura, dentro del proyecto Primes.Tests se dede haber generado una carpeta o directorio TestResults, en el cual posiblemente exista otra subpcarpeta o subdirectorio conteniendo un archivo con nombre `coverage.cobertura.xml`, si existe ese archivo proceder a ejecutar los siguientes comandos desde la linea de comandos abierta anteriomente, de los contrario revisar el paso 8:
 ```
 dotnet tool install -g dotnet-reportgenerator-globaltool
 ReportGenerator "-reports:./*/*/*/coverage.cobertura.xml" "-targetdir:Cobertura" -reporttypes:HTML
 ```
-17. El comando anterior primero proceda instalar una herramienta llamada ReportGenerator (https://reportgenerator.io/) la cual mediante la segunda parte del comando permitira generar un reporte en formato HTML con la cobertura obtenida de la ejecución de las pruebas. Este reporte debe localizarse dentro de una carpeta llamada Cobertura y puede acceder a el abriendo con un navegador de internet el archivo index.htm.
+18. El comando anterior primero proceda instalar una herramienta llamada ReportGenerator (https://reportgenerator.io/) la cual mediante la segunda parte del comando permitira generar un reporte en formato HTML con la cobertura obtenida de la ejecución de las pruebas. Este reporte debe localizarse dentro de una carpeta llamada Cobertura y puede acceder a el abriendo con un navegador de internet el archivo index.htm.
 
 ---
 ## Actividades Encargadas
-1. Adicionar los escenarios, casos de prueba, metodos de prueba y modificaciones para verificar los números del 2 al 20.
+1. Adicionar los escenarios, casos de prueba, metodos de prueba y modificaciones para verificar el método de crédito.
