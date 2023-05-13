@@ -39,9 +39,9 @@ dotnet new xunit -o Primes.Tests
 dotnet sln add .\Primes.Tests\Primes.Tests.csproj
 dotnet add .\Primes.Tests\Primes.Tests.csproj reference .\Primes.Lib\Primes.Lib.csproj
 ```
-5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Primes.Lib, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Primes.Tests si existiese un archivo UnitTest1, tambièn proceder a aliminarlo.
+5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Primes.Lib, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Primes.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
 
-6. En VS Code, en el proyecto Primes.Lib proceder a crear el archivo PrimeServices e introdudir el siguiente código, para generar un metodo que devolvera una excepciòn inicialmente:
+6. En VS Code, en el proyecto Primes.Lib proceder a crear el archivo PrimeServices.cs e introducir el siguiente código, para generar un metodo que devolvera una excepciòn inicialmente:
 ```C#
 namespace Primes.Lib
 {
