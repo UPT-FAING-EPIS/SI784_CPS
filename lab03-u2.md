@@ -123,32 +123,55 @@ Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration:
 ```Bash
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: < 1 ms
 ```
-12. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba PrimeServiceTests y adicionar el método siguiente, que adiciona tres valores y escenarios de pruebas más:
+12. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba BankAccountTests y adicionar el método siguiente que contempla un escenario de prueba diferente:
 ```C#
-        [Theory]
-        [InlineData(-1)]
-        [InlineData(0)]
-        [InlineData(1)]
-        public void IsPrime_ValuesLessThan2_ReturnFalse(int value)
+        [Test]
+        public void Debit_WhenAmountIsLessThanZero_ShouldThrowArgumentOutOfRange()
         {
-            var result = _primeService.IsPrime(value);
-            Assert.False(result, $"{value} should not be prime");
+            // Arrange
+            double beginningBalance = 11.99;
+            double debitAmount = -100.00;
+            BankAccount account = new BankAccount("Mr. Bryan Walton", beginningBalance);
+            // Act and assert
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => account.Debit(debitAmount));
         }
 ```
-13. Ejecutar nuevamente el paso 8 para lo cual se obtendra un error similar al siguiente:
+13. Ejecutar nuevamente el paso 8 para lo cual se obtendra una respuesta similar a la siguiente:
 ```
-Failed!  - Failed:     2, Passed:     2, Skipped:     0, Total:     4, Duration: 46 ms
+Passed!  - Failed:     0, Passed:     2, Skipped:     0, Total:     2, Duration: 9 ms
 ```
-14. A fin de que las pruebas puedan ejecutarse correctamente, modificar la clase PrimeService de la siguiente manera:
+14. Ahora es tiempo de mejorar el código y refactorizar, para lo cual se modificar la clase BankAccount de la siguiente manera:
 ```C#
-namespace Primes.Lib
+using System;
+namespace Bank.Domain
 {
-    public class PrimeService
+    public class BankAccount
     {
-        public bool IsPrime(int candidate)
+        public const string DebitAmountExceedsBalanceMessage = "Debit amount exceeds balance";
+        public const string DebitAmountLessThanZeroMessage = "Debit amount is less than zero";
+        private readonly string m_customerName;
+        private double m_balance;
+        private BankAccount() { }
+        public BankAccount(string customerName, double balance)
         {
-            if (candidate < 2) return false;
-            throw new NotImplementedException("Not implemented.");
+            m_customerName = customerName;
+            m_balance = balance;
+        }
+        public string CustomerName { get { return m_customerName; } }
+        public double Balance { get { return m_balance; }  }
+        public void Debit(double amount)
+        {
+            if (amount > m_balance)
+                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountExceedsBalanceMessage);
+            if (amount < 0)
+                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
+            m_balance -= amount; 
+        }
+        public void Credit(double amount)
+        {
+            if (amount < 0)
+                throw new ArgumentOutOfRangeException("amount");
+            m_balance += amount;
         }
     }
 }
