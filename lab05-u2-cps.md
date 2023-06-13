@@ -25,21 +25,21 @@
 1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador 
 2. Ejecutar el siguiente comando para crear una nueva solución
 ```
-dotnet new sln -o Bank
+dotnet new sln -o Calculator
 ```
 3. Acceder a la solución creada y ejecutar el siguiente comando para crear una nueva libreria de clases y adicionarla a la solución actual.
 ```
-cd Bank
-dotnet new classlib -o Bank.Domain
-dotnet sln add ./Bank.Domain/Bank.Domain.csproj
+cd Calculator
+dotnet new classlib -o Calculator.Domain
+dotnet sln add ./Calculator.Domain/Calculator.Domain.csproj
 ```
 4. Ejecutar el siguiente comando para crear un nuevo proyecto de pruebas y adicionarla a la solución actual
 ```
-dotnet new nunit -o Bank.Domain.Tests
-dotnet sln add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj
-dotnet add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj reference ./Bank.Domain/Bank.Domain.csproj
+dotnet new nunit -o Calculator.Domain.Tests
+dotnet sln add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj
+dotnet add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj reference ./Calculator.Domain/Calculator.Domain.csproj
 ```
-5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Bank.Domain, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Bank.Domain.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
+5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Calculator.Domain, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Calculator.Domain.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
 
 6. En VS Code, en el proyecto Bank.Domain proceder a crear el archivo BankAccount.cs e introducir el siguiente código:
 ```C#
