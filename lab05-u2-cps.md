@@ -37,11 +37,13 @@ dotnet sln add ./Calculator.Domain/Calculator.Domain.csproj
 ```
 dotnet new nunit -o Calculator.Domain.Tests
 dotnet sln add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj
+dotnet add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj package SpecFlow.NUnit
+dotnet add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj package SpecFlow.Plus.LivingDocPlugin
 dotnet add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj reference ./Calculator.Domain/Calculator.Domain.csproj
 ```
 5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Calculator.Domain, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Calculator.Domain.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
 
-6. En VS Code, en el proyecto Calculator.Domain.Tests proceder a crear el folder Features y dentro de este crear el archivo Calculator.feature e introducir el siguiente código:
+6. En VS Code, en el proyecto Calculator.Domain.Tests proceder a crear el folder "Features" y dentro de este crear el archivo Calculator.feature e introducir la siguiente historia de usuario:
 ```Gherkin
 Feature: Como usuario quiero hacer operaciones aritmeticas para calcular resultados
 
@@ -57,107 +59,85 @@ Scenario: Usuario resta dos numeros y el resultado es correcto
 	When resto
 	Then el resultado es 5
  ```
-8. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
-```Bash
-dotnet test --collect:"XPlat Code Coverage"
-```
-9. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
-```Bash
-Failed!  - Failed:     1, Passed:     0, Skipped:     0, Total:     1, Duration: < 1 ms
-```
-10. En el proyecto Bank.Domain, modificar la clase BankAccount, en la linea 21 con el siguiente contenido:
+7. Ahora proceder a crear la clase que brindaa soporte a este caso de usuario, en el proyecto Calculator.Domain, crear el archivo Calculator.cs e introducir el siguiente código.
 ```C#
-       m_balance -= amount;
-```
-11. Ejecutar nuevamente el pase 8 y ahora deberia devolver algo similar a lo siguiente:
-```Bash
-Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: < 1 ms
-```
-12. Con la finalidad de aumentar la confienza en la aplicación, se ampliará el rango de pruebas para lo cual editar la clase de prueba BankAccountTests y adicionar el método siguiente que contempla un escenario de prueba diferente:
-```C#
-        [Test]
-        public void Debit_WhenAmountIsLessThanZero_ShouldThrowArgumentOutOfRange()
-        {
-            // Arrange
-            double beginningBalance = 11.99;
-            double debitAmount = -100.00;
-            BankAccount account = new BankAccount("Mr. Bryan Walton", beginningBalance);
-            // Act and assert
-            Assert.Throws<System.ArgumentOutOfRangeException>(() => account.Debit(debitAmount));
-        }
-```
-13. Ejecutar nuevamente el paso 8 para lo cual se obtendra una respuesta similar a la siguiente:
-```
-Passed!  - Failed:     0, Passed:     2, Skipped:     0, Total:     2, Duration: 9 ms
-```
-14. Ahora es tiempo de mejorar el código y refactorizar, para lo cual modificar la clase BankAccount de la siguiente manera:
-```C#
-using System;
-namespace Bank.Domain
+namespace Calculator.Domain;
+public class Calculator
 {
-    public class BankAccount
+    public int Add(int x, int y) => x + y;
+    public int Subtract(int x, int y) => x - y;
+}
+```
+8. Finalmente unir la historia de usuario con la clase mediante pruebas, para esto crear en el proyecto Calculator.Domain.Tests crear el folder "Steps" y dentro de este crear el archivo CalculatorTests.cs e introducir el siguiente código.
+```C#
+using NUnit.Framework;
+using TechTalk.SpecFlow;
+
+namespace Calculator.Domain.Tests.Steps
+{
+    [Binding]
+    public sealed class CalculatorTests
     {
-        public const string DebitAmountExceedsBalanceMessage = "Debit amount exceeds balance";
-        public const string DebitAmountLessThanZeroMessage = "Debit amount is less than zero";
-        private readonly string m_customerName;
-        private double m_balance;
-        private BankAccount() { }
-        public BankAccount(string customerName, double balance)
+        private readonly ScenarioContext _scenarioContext;
+        public Calculator Calculadora { get; set; }
+        private int _operador01 { get; set; }
+        private int _operador02 { get; set; }
+        private int _resultado { get; set; }
+        
+        public CalculatorTests(ScenarioContext scenarioContext)
         {
-            m_customerName = customerName;
-            m_balance = balance;
+            _scenarioContext = scenarioContext;
+            Calculadora = new Calculator();
         }
-        public string CustomerName { get { return m_customerName; } }
-        public double Balance { get { return m_balance; }  }
-        public void Debit(double amount)
+
+        [Given("El numero (.*)")]
+        public void DadoElNumero(int operando01)
         {
-            if (amount > m_balance)
-                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountExceedsBalanceMessage);
-            if (amount < 0)
-                throw new ArgumentOutOfRangeException("amount", amount, DebitAmountLessThanZeroMessage);
-            m_balance -= amount; 
+            _operador01 = operando01;
         }
-        public void Credit(double amount)
+
+        [Given("el numero (.*)")]
+        public void yElNumero(int operando02)
         {
-            if (amount < 0)
-                throw new ArgumentOutOfRangeException("amount");
-            m_balance += amount;
+            _operador02 = operando02;
         }
+
+        [When("sumo")]
+        public void CuandoSumo()
+        {
+            _resultado = Calculadora.Add(_operador01,_operador02);
+        }
+
+        [When("resto")]
+        public void CuandoResto()
+        {
+            _resultado = Calculadora.Subtract(_operador01,_operador02);
+        }
+
+        [Then("el resultado es (.*)")]
+        public void EntoncesElResultadoDeberiaSer(int resultado)
+        {
+            Assert.AreEqual(_resultado, resultado);
+        }        
     }
 }
 ```
-15. Adicionar el siguiente método de prueba en la clase BankAccountTests, que permitira verificar si el monto de retiro es mayor al saldo de la cuenta.
-```C#
-        [Test]
-        public void Debit_WhenAmountIsMoreThanBalance_ShouldThrowArgumentOutOfRange()
-        {
-            // Arrange
-            double beginningBalance = 11.99;
-            double debitAmount = 20.0;
-            BankAccount account = new BankAccount("Mr. Bryan Walton", beginningBalance);
-            // Act
-            try
-            {
-                account.Debit(debitAmount);
-            }
-            catch (System.ArgumentOutOfRangeException e)
-            {
-                // Assert
-                StringAssert.Contains(BankAccount.DebitAmountExceedsBalanceMessage, e.Message);
-            }
-        }
+
+8. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
+```Bash
+dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=..\Cobertura\
 ```
-16. Volver a ejecutar el paso 8 y verificar el resultado, debería ser similar a lo siguiente
+9. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
+```Bash
+Correctas! - Con error:     0, Superado:     2, Omitido:     0, Total:     2, Duración: 27 ms 
 ```
-Passed!  - Failed:     0, Passed:     3, Skipped:     0, Total:     3, Duration: 12 ms
+10. Finalmente proceder a verificar las pruebas en base a comportamiento, para esto ejecutar el siguiente comando en el terminal anteriormente abierto:
 ```
-17. Finalmente proceder a verificar la cobertura, dentro del proyecto Primes.Tests se dede haber generado una carpeta o directorio TestResults, en el cual posiblemente exista otra subpcarpeta o subdirectorio conteniendo un archivo con nombre `coverage.cobertura.xml`, si existe ese archivo proceder a ejecutar los siguientes comandos desde la linea de comandos abierta anteriomente, de los contrario revisar el paso 8:
+dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
+livingdoc test-assembly .\Calculator.Domain.Tests\bin\Debug\net7.0\Calculator.Domain.Tests.dll -t .\Calculator.Domain.Tests\bin\Debug\net7.0\TestExecution.json -o CalculatorTests.html
 ```
-dotnet tool install -g dotnet-reportgenerator-globaltool
-ReportGenerator "-reports:./*/*/*/coverage.cobertura.xml" "-targetdir:Cobertura" -reporttypes:HTML
-```
-18. El comando anterior primero proceda instalar una herramienta llamada ReportGenerator (https://reportgenerator.io/) la cual mediante la segunda parte del comando permitira generar un reporte en formato HTML con la cobertura obtenida de la ejecución de las pruebas. Este reporte debe localizarse dentro de una carpeta llamada Cobertura y puede acceder a el abriendo con un navegador de internet el archivo index.htm.
+11. El comando anterior primero proceda instalar una herramienta llamada Specflow +LivingDoc  (https://specflow.org/tools/living-doc/) la cual mediante la segunda parte del comando permitira generar un reporte en formato HTML con las pruebas en base a comportamiento creadas. Este reporte debe localizarse en el mismo directorio donde se encuentra actualmente y puede acceder a el abriendo con un navegador de internet el archivo index.htm.
 
 ---
 ## Actividades Encargadas
-1. Adicionar los escenarios, casos de prueba, metodos de prueba y modificaciones para verificar el método de crédito.
+1. Adicionar los escenarios y casos de prueba para multiplicar y dividir.
