@@ -41,72 +41,22 @@ dotnet add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj reference ./
 ```
 5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Calculator.Domain, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Calculator.Domain.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
 
-6. En VS Code, en el proyecto Bank.Domain proceder a crear el archivo BankAccount.cs e introducir el siguiente código:
-```C#
-namespace Bank.Domain
-{
-    public class BankAccount
-    {
-        private readonly string m_customerName;
-        private double m_balance;
-        private BankAccount() { }
-        public BankAccount(string customerName, double balance)
-        {
-            m_customerName = customerName;
-            m_balance = balance;
-        }
-        public string CustomerName { get { return m_customerName; } }
-        public double Balance { get { return m_balance; }  }
-        public void Debit(double amount)
-        {
-            if (amount > m_balance)
-                throw new ArgumentOutOfRangeException("amount");
-            if (amount < 0)
-                throw new ArgumentOutOfRangeException("amount");
-            m_balance += amount; // intentionally incorrect code
-        }
-        public void Credit(double amount)
-        {
-            if (amount < 0)
-                throw new ArgumentOutOfRangeException("amount");
-            m_balance += amount;
-        }
-        public static void Main()
-        {
-            BankAccount ba = new BankAccount("Mr. Bryan Walton", 11.99);
-            ba.Credit(5.77);
-            ba.Debit(11.22);
-            Console.WriteLine("Current balance is ${0}", ba.Balance);
-        }
-    }
-}
-```
-7. Luego en el proyecto Bank.Domain.Tests añadir un nuevo archivo BanckAccountTests.cs e introducir el siguiente código:
-```C#
-using Bank.Domain;
-using NUnit.Framework;
+6. En VS Code, en el proyecto Calculator.Domain.Tests proceder a crear el folder Features y dentro de este crear el archivo Calculator.feature e introducir el siguiente código:
+```Gherkin
+Feature: Como usuario quiero hacer operaciones aritmeticas para calcular resultados
 
-namespace Bank.Domain.Tests
-{
-    public class BankAccountTests
-    {
-        [Test]
-        public void Debit_WithValidAmount_UpdatesBalance()
-        {
-            // Arrange
-            double beginningBalance = 11.99;
-            double debitAmount = 4.55;
-            double expected = 7.44;
-            BankAccount account = new BankAccount("Mr. Bryan Walton", beginningBalance);
-            // Act
-            account.Debit(debitAmount);
-            // Assert
-            double actual = account.Balance;
-            Assert.AreEqual(expected, actual, 0.001, "Account not debited correctly");
-        }
-    }
-}
-```
+Scenario: Usuario suma dos numeros y el resultado es correcto
+	Given El numero 10
+    And el numero 5
+	When sumo
+	Then el resultado es 15
+
+Scenario: Usuario resta dos numeros y el resultado es correcto
+	Given El numero 10
+    And el numero 5
+	When resto
+	Then el resultado es 5
+ ```
 8. Abrir un terminal en VS Code (CTRL + Ñ) o vuelva al terminal anteriormente abierto, y ejecutar los comandos:
 ```Bash
 dotnet test --collect:"XPlat Code Coverage"
