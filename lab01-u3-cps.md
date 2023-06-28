@@ -67,13 +67,48 @@ Scenario: Cliente retira en su cuenta un monto negativo y es incorrecto
 	When retiro -10
 	Then deberia ser error
  ```
-7. Ahora proceder a crear la clase que brindaa soporte a este caso de usuario, en el proyecto Calculator.Domain, crear el archivo Calculator.cs e introducir el siguiente código.
+7. Ahora proceder a crear la clase que brinda soporte a este caso de Cuenta, en el proyecto Bank.Domain, crear el archivo Account.cs e introducir el siguiente código.
 ```C#
-namespace Calculator.Domain;
-public class Calculator
+namespace Bank.Domain
 {
-    public int Add(int x, int y) => x + y;
-    public int Subtract(int x, int y) => x - y;
+    public class Account
+    {
+        public const string ERROR_AMOUNT_LESS_EQUAL_TO_CERO = "El monto no puede ser menor o igual a 0";
+        public int AccountID { get; private set; }
+        public string AccountNumber { get; private set; }
+        public decimal Balance { get; private set; }
+        public bool Active { get; private set; }
+        public static Account Open(string _accountNumber)
+        {
+            return new Account()
+            {
+                AccountNumber = _accountNumber,
+                Balance = 0,
+                Active = true
+            };
+        }
+
+        public static Account OpenWithInitialAmount(string _accountNumber, decimal _amount)
+        {
+            var account = Open(_accountNumber);
+            account.Deposit(_amount);
+            return account;
+        }
+
+        public void Deposit(decimal _amount)
+        {
+            if (_amount <= 0)
+                throw new Exception (ERROR_AMOUNT_LESS_EQUAL_TO_CERO);
+            Balance += _amount;
+        }
+        
+        public void Withdraw(decimal _amount)
+        {
+            if (_amount <= 0)
+                throw new Exception (ERROR_AMOUNT_LESS_EQUAL_TO_CERO);
+            Balance -= _amount;
+        }
+    }
 }
 ```
 8. Finalmente unir la historia de usuario con la clase mediante pruebas, para esto crear en el proyecto Calculator.Domain.Tests crear el folder "Steps" y dentro de este crear el archivo CalculatorTests.cs e introducir el siguiente código.
