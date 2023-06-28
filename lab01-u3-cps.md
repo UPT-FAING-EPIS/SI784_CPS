@@ -23,7 +23,7 @@
 
 ## DESARROLLO
 
-# PARTE I: CREACIÓN DEL PROYECTO DE PRUEBAS
+### PARTE I: CREACIÓN DEL PROYECTO DE PRUEBAS
 
 1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador 
 2. Ejecutar el siguiente comando para crear una nueva solución
