@@ -183,6 +183,41 @@ livingdoc test-assembly .\Bank.Domain.Tests\bin\Debug\net7.0\Bank.Domain.Tests.d
 
 ### PARTE II: PUBLICAR EN GITHUB
 
+1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador en la carpeta raiz donde se encuentra el proyecto. O volver a la terminal que estaba abierta en pasos anteriores
+2. Añadir un archivo .gitignore en la carpeta Bank con el siguiente contenido
+```
+dotnet new sln -o Bank
+```
+3. Acceder a la solución creada y ejecutar el siguiente comando para crear una nueva libreria de clases y adicionarla a la solución actual.
+```
+cd Bank
+dotnet new classlib -o Bank.Domain
+dotnet sln add ./Bank.Domain/Bank.Domain.csproj
+```
+### PARTE III: CONFIGURAR PROYECTO EN AZURE DEVOPS
+1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador 
+2. Ejecutar el siguiente comando para crear una nueva solución
+```
+dotnet new sln -o Bank
+```
+3. Acceder a la solución creada y ejecutar el siguiente comando para crear una nueva libreria de clases y adicionarla a la solución actual.
+```
+cd Bank
+dotnet new classlib -o Bank.Domain
+dotnet sln add ./Bank.Domain/Bank.Domain.csproj
+```
+### PARTE IV: CREAR PIPELINE DE INTEGRACIÓN CONTINUA
+1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador 
+2. Ejecutar el siguiente comando para crear una nueva solución
+```
+dotnet new sln -o Bank
+```
+3. Acceder a la solución creada y ejecutar el siguiente comando para crear una nueva libreria de clases y adicionarla a la solución actual.
+```
+cd Bank
+dotnet new classlib -o Bank.Domain
+dotnet sln add ./Bank.Domain/Bank.Domain.csproj
+```
 
 ---
 ## Actividades Encargadas
