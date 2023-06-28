@@ -1,4 +1,4 @@
-# SESION DE LABORATORIO N° 05: PRUEBAS UTILIZANDO LA DESARROLLO GUIADO POR EL COMPORTAMIENTO
+# SESION DE LABORATORIO N° 01: GESTION DE PRUEBAS AUTOMATIZADAS UTILIZANDO SPECFLOW
 
 ## OBJETIVOS
   * Comprender el funcionamiento de las pruebas unitarias dentro de una aplicación utilizando el Framework de pruebas NUnit.
@@ -22,26 +22,29 @@
   * Clonar el repositorio mediante git para tener los recursos necesarios
 
 ## DESARROLLO
+
+# PARTE I: CREACIÓN DEL PROYECTO DE PRUEBAS
+
 1. Iniciar la aplicación Powershell o Windows Terminal en modo administrador 
 2. Ejecutar el siguiente comando para crear una nueva solución
 ```
-dotnet new sln -o Calculator
+dotnet new sln -o Bank
 ```
 3. Acceder a la solución creada y ejecutar el siguiente comando para crear una nueva libreria de clases y adicionarla a la solución actual.
 ```
-cd Calculator
-dotnet new classlib -o Calculator.Domain
-dotnet sln add ./Calculator.Domain/Calculator.Domain.csproj
+cd Bank
+dotnet new classlib -o Bank.Domain
+dotnet sln add ./Bank.Domain/Bank.Domain.csproj
 ```
 4. Ejecutar el siguiente comando para crear un nuevo proyecto de pruebas y adicionarla a la solución actual
 ```
-dotnet new nunit -o Calculator.Domain.Tests
-dotnet sln add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj
-dotnet add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj package SpecFlow.NUnit
-dotnet add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj package SpecFlow.Plus.LivingDocPlugin
-dotnet add ./Calculator.Domain.Tests/Calculator.Domain.Tests.csproj reference ./Calculator.Domain/Calculator.Domain.csproj
+dotnet new nunit -o Bank.Domain.Tests
+dotnet sln add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj
+dotnet add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj package SpecFlow.NUnit
+dotnet add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj package SpecFlow.Plus.LivingDocPlugin
+dotnet add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj reference ./Bank.Domain/Bank.Domain.csproj
 ```
-5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Calculator.Domain, si existe un archivo Class1.cs proceder a eliminarlo. Asimismo en el proyecto Calculator.Domain.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
+5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Calculator.Domain, si existe un archivo Bank.cs proceder a eliminarlo. Asimismo en el proyecto Calculator.Domain.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
 
 6. En VS Code, en el proyecto Calculator.Domain.Tests proceder a crear el folder "Features" y dentro de este crear el archivo Calculator.feature e introducir la siguiente historia de usuario:
 ```Gherkin
