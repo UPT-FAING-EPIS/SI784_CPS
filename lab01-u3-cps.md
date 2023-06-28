@@ -111,7 +111,7 @@ namespace Bank.Domain
     }
 }
 ```
-8. Finalmente unir la historia de usuario con la clase mediante pruebas, para esto crear en el proyecto Calculator.Domain.Tests crear el folder "Steps" y dentro de este crear el archivo CalculatorTests.cs e introducir el siguiente código.
+8. Finalmente unir la historia de usuario con la clase mediante pruebas, para esto crear en el proyecto Bank.Domain.Tests crear el folder "Steps" y dentro de este crear el archivo AccountStepsTests.cs e introducir el siguiente código.
 ```C#
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -177,7 +177,7 @@ Correctas! - Con error:     0, Superado:     3, Omitido:     0, Total:     3, Du
 10. Finalmente proceder a verificar las pruebas en base a comportamiento, para esto ejecutar el siguiente comando en el terminal anteriormente abierto:
 ```
 dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
-livingdoc test-assembly .\Calculator.Domain.Tests\bin\Debug\net7.0\Calculator.Domain.Tests.dll -t .\Calculator.Domain.Tests\bin\Debug\net7.0\TestExecution.json -o CalculatorTests.html
+livingdoc test-assembly .\Bank.Domain.Tests\bin\Debug\net7.0\Bank.Domain.Tests.dll -t .\Bank.Domain.Tests\bin\Debug\net7.0\TestExecution.json -o Bank.html
 ```
 11. El comando anterior primero proceda instalar una herramienta llamada Specflow +LivingDoc  (https://specflow.org/tools/living-doc/) la cual mediante la segunda parte del comando permitira generar un reporte en formato HTML con las pruebas en base a comportamiento creadas. Este reporte debe localizarse en el mismo directorio donde se encuentra actualmente y puede acceder a el abriendo con un navegador de internet el archivo index.htm.
 
