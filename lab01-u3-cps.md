@@ -179,7 +179,10 @@ Correctas! - Con error:     0, Superado:     3, Omitido:     0, Total:     3, Du
 dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
 livingdoc test-assembly .\Bank.Domain.Tests\bin\Debug\net7.0\Bank.Domain.Tests.dll -t .\Bank.Domain.Tests\bin\Debug\net7.0\TestExecution.json -o Bank.html
 ```
-11. El comando anterior primero proceda instalar una herramienta llamada Specflow +LivingDoc  (https://specflow.org/tools/living-doc/) la cual mediante la segunda parte del comando permitira generar un reporte en formato HTML con las pruebas en base a comportamiento creadas. Este reporte debe localizarse en el mismo directorio donde se encuentra actualmente y puede acceder a el abriendo con un navegador de internet el archivo index.htm.
+11. El comando anterior primero proceda instalar una herramienta llamada Specflow +LivingDoc  (https://specflow.org/tools/living-doc/) la cual mediante la segunda parte del comando permitira generar un reporte en formato HTML con las pruebas en base a comportamiento creadas. Este reporte debe localizarse en el mismo directorio donde se encuentra actualmente y puede acceder a el abriendo con un navegador de internet el archivo Bank.html.
+
+### PARTE II: PUBLICAR EN GITHUB
+
 
 ---
 ## Actividades Encargadas
