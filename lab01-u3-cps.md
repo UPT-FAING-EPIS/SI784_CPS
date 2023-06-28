@@ -172,7 +172,7 @@ dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Coverle
 ```
 9. El paso anterior debe producir un error por lo que sera necesario escribir el código mecesario para que el test funcione. 
 ```Bash
-Correctas! - Con error:     0, Superado:     2, Omitido:     0, Total:     2, Duración: 27 ms 
+Correctas! - Con error:     0, Superado:     3, Omitido:     0, Total:     3, Duración: 45 ms
 ```
 10. Finalmente proceder a verificar las pruebas en base a comportamiento, para esto ejecutar el siguiente comando en el terminal anteriormente abierto:
 ```
