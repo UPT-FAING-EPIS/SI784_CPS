@@ -46,7 +46,7 @@ dotnet add ./Bank.Domain.Tests/Bank.Domain.Tests.csproj reference ./Bank.Domain/
 ```
 5. Iniciar Visual Studio Code (VS Code) abriendo el folder de la solución como proyecto. En el proyecto Calculator.Domain, si existe un archivo Bank.cs proceder a eliminarlo. Asimismo en el proyecto Calculator.Domain.Tests si existiese un archivo UnitTest1.cs, también proceder a eliminarlo.
 
-6. En VS Code, en el proyecto Calculator.Domain.Tests proceder a crear el folder "Features" y dentro de este crear el archivo Account.feature e introducir la siguiente historia de usuario:
+6. En VS Code, en el proyecto Bank.Domain.Tests proceder a crear el folder "Features" y dentro de este crear el archivo Account.feature e introducir la siguiente historia de usuario:
 ```Gherkin
 Feature: Como cliente quiere realizar depositos y retiros para modificar mi saldo de cuenta
 
